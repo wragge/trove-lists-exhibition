@@ -2,7 +2,7 @@
 <div ng-hide="!list">
 <h2>{{ list.title }}</h2>
 <p ng-if="list.description" class="lead" ng-bind-html="list.description"></p>
-<p><a ng-href="http://trove.nla.gov.au/list?id={{ list.id }}">View list on Trobe <fa name="external-link"></fa></a></p>
+<p><a ng-href="http://trove.nla.gov.au/list?id={{ list.id }}">View list on Trove <fa name="external-link"></fa></a></p>
 <div class="media" ng-repeat="item in items | itemsInList:list.order">
   <div class="media-left">
     <a ng-href="/#/resources/{{ item.order }}">
