@@ -1,0 +1,134 @@
+<!doctype html>
+<html ng-app="trovelistsApp" ng-controller="BaseCtrl">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ exhibition }} -- {{ tagline }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">{{ exhibition }}</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li ng-class="{ active: isActive('/') }"><a href="#/">Home</a></li>
+              <li ng-class="{ active: isActive('/topics/') }"><a ng-href="#/topics/">Topics</a></li>
+              <li ng-class="{ active: isActive('/resources/') }"><a ng-href="#/resources/">Resources</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+    <!-- EDIT THIS SECTION TO ADD YOUR EXHIBITION DETAILS -->
+    <h1 ng-hide="listHide" class="ng-hide" id="exhibition-name" class="page-header">Keepsakes</h1>
+    <h2 ng-hide="listHide" class="ng-hide" id="exhibition-tagline">Australians and The Great War</h2>
+    <div ng-hide="listHide" class="ng-hide" id="exhibition-description">
+      <p>To mark the centenary of the First World War, <a href="https://www.nla.gov.au/exhibitions/keepsakes"><em>Keepsakes</em></a> explored the diaries, photographs, letters and mementos kept and treasured as reminders of the Great War.</p>
+      <p><em>Keepsakes</em> was on display at the National Library of Australia from 26 November 2014 to 19 July 2015.</p>
+      <p>This site displays content from Trove related to the themes of the exhibition. It is a demonstration of how resources collected using <a href="http://help.nla.gov.au/trove/using-trove/creating-contributing/lists">Trove lists</a> can be reused through the <a href="http://help.nla.gov.au/trove/building-with-trove">Trove API</a> to create new interfaces and applications.</p>
+    </div>
+    <ul ng-hide="listHide" class="ng-hide" id="lists">
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=64880">Keepsakes: Australians and The Great War</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=62867">Keepsakes: Australians and The Great War: 1914</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63188">Keepsakes: Australians and The Great War: 1915</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63492">Keepsakes: Australians and The Great War: 1916</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63493">Keepsakes: Australians and The Great War: 1917</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63504">Keepsakes: Australians and The Great War: 1918</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63346">Keepsakes: Australians and The Great War: J. P. Campbell</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63691">Keepsakes: Australians and The Great War: Arthur Wheen</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63342">Keepsakes: Australians and The Great War: C.E.W. Bean</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63502">Keepsakes: Australians and The Great War: David Low</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63291">Keepsakes: Australians and The Great War: Frank Hurley</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63518">Keepsakes: Australians and The Great War: William Morris Hughes</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63473">Keepsakes: Australians and The Great War: Sir Granville Ryrie</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63862">Keepsakes: Australians and The Great War: Norman Lindsay</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63348">Keepsakes: Australians and The Great War: Sir John Monash</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63959">Keepsakes: Australians and The Great War: C.J. Dennis</a></li>
+    </ul>
+    <script>
+      var troveAPIKey = "";
+    </script>
+    <!-- END OF YOUR DETAILS -->
+
+    <div class="view-container">
+      <div ng-view="" class="view-frame"></div>
+    </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/lists.js"></script>
+        <script src="scripts/controllers/list.js"></script>
+        <script src="scripts/controllers/items.js"></script>
+        <script src="scripts/controllers/item.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

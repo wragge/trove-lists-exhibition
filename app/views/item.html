@@ -1,0 +1,32 @@
+  <div class="loading" ng-hide="lists.length > 0"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
+  <h3>{{ item.title }}</h3>
+  <div class="row" ng-hide="!item">
+    <div class="col-md-8">
+      <div ng-if="item.type == 'newspaper'">
+        <p class="lead">{{ item.date | dateFormat }}</p>
+        <p><em>{{ item.newspaper }}</em>, page {{ item.page }}</p>
+        <p class="well" ng-if="item.note" ng-bind-html="item.note"></p>
+        <p>Part of <a href="#/topics/{{ lists[item.list - 1].order }}">{{ lists[item.list - 1].title }}</a></p>
+        <p><a href="{{ item.url }}">View on Trove <fa name="external-link"></fa></a></p>
+      </div>
+      <div ng-if="item.type == 'work'">
+        <p class="lead">{{ item.date }}</p>
+        <p>{{ item.format }}</p>
+        <p>Part of <a href="#/topics/{{ lists[item.list - 1].order }}">{{ lists[item.list - 1].title }}</a></p>
+        <p><a href="{{ item.url }}">View on Trove <fa name="external-link"></fa></a></p>
+      </div>
+      <nav>
+        <ul class="pager">
+          <li class="previous" ng-class="{disabled: item.order === 1}"><a ng-href="{{(item.order === 1) ? '' : '/#/resources/' + (item.order - 1)}}"><span aria-hidden="true">&larr;</span> Previous</a></li>
+          <li ng-class="{disabled: item.order === list.items.length}"><a ng-href="{{(item.order === list.items.length) ? '' : '/#/resources/' + (item.order + 1)}}">Next <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col-md-4">
+      <img ng-if="item.type != 'newspaper' && item.thumbnail" ng-src="{{ item.thumbnail }}" class="thumbnail center-cropped-large">
+      <div class="newspaper-text" ng-if="item.type == 'newspaper'" ng-bind-html="articleText"></div>
+      <p ng-if="words"><a href="{{ item.url }}">View all {{ words }} words <fa name="external-link"></fa></a></p>
+    </div>
+  </div>
+  
+

@@ -1,0 +1,14 @@
+<h3>Topics</h3>
+  <div class="loading" ng-hide="lists.length > 0"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
+<div class="media" ng-repeat="(id, list) in lists">
+  <div class="media-left">
+    <a ng-href="/#/topics/{{ list.order }}">
+      <img class="thumbnail media-object center-cropped" ng-src="{{ list.thumbnail }}" alt="Thumbnail for {{ list.title }}">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{ list.title }}</h4>
+    <div ng-if="list.description" ng-bind-html="list.description"></div>
+    <a ng-href="/#/topics/{{ list.order }}">Browse {{ list.numberOfItems}} items</a>
+  </div>
+</div>
