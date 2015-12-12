@@ -8,22 +8,29 @@
  * Controller of the trovelistsApp
  */
 angular.module('trovelistsApp')
-  .controller('ItemsCtrl', ['$scope', '$rootScope', '$routeParams', '$document', '$filter', '$http', '$q', 'ListsDataFactory', function ($scope, $rootScope, $routeParams, $document, $filter, $http, $q, ListsDataFactory) {
+  .controller('ItemsCtrl', ['$scope', '$rootScope', '$routeParams', '$document', '$filter', '$http', '$q', '$location', 'ListsDataFactory', function ($scope, $rootScope, $routeParams, $document, $filter, $http, $q, $location, ListsDataFactory) {
     $document.scrollTop(0);
-    if ($scope.items.length === 0) {
-      var promises = ListsDataFactory.getPromises();
-      $q.all(promises).then(function successCallback(responses) {
-        var order = 1;
-        var items = [];
-        var lists = [];
-        angular.forEach(responses, function(response) {
-          var listDetails = ListsDataFactory.processList(response.data.list[0], order);
-          items = ListsDataFactory.processListItems(listDetails[1], order, items);
-          lists.push(listDetails[0]);
-          order++;
-        }); 
-        $scope.lists = lists;
-        $scope.items = items;
-      });
-    }  
+    $scope.view = 'list';
+    if (typeof $rootScope.items === 'undefined' && $rootScope.failed !== true) {
+        var tries = 1;
+        var loadListData = function() {
+          var promises = ListsDataFactory.getPromises();
+          $q.all(promises).then(
+          function successCallback(responses) {
+            ListsDataFactory.loadResources(responses);
+          },
+          function errorCallback() {
+            if (tries < 1) {
+              tries++;
+              loadListData();
+            } else {
+              //$rootScope.listHide = false;
+              $rootScope.failed = true;
+            }
+          });
+        };
+        loadListData();
+    } else if ($rootScope.failed === true) {
+      $location.url('/');
+    }
   }]);

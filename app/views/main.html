@@ -1,28 +1,44 @@
-<h1 class="pagehead">{{ exhibition }} <small ng-if="tagline">{{ tagline }}</small></h1>
-<p class="lead" ng-if="description" class="lead" ng-bind-html="description"></p>
-<div class="loading" ng-hide="lists.length > 0"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
 <div class="row">
-  <div class="col-md-7" ng-hide="lists.length == 0">
+  <div class="col-xs-12 title-block">
+    <h1 class="pagehead">{{ exhibition }}<small ng-if="tagline"> {{ tagline }}</small></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <p class="lead" ng-if="description" ng-bind-html="description"></p>
+    <div class="loading text-muted" ng-hide="lists.length > 0 || failed"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7" ng-if="lists">
     <h3>Topics</h3>
     <div class="media" ng-repeat="(id, list) in lists">
       <div class="media-left">
-        <a ng-href="/#/topics/{{ list.order }}">
+        <a ng-href="#/topics/{{ list.order }}">
           <img class="thumbnail media-object center-cropped" ng-src="{{ list.thumbnail }}" alt="Thumbnail for {{ list.title }}">
         </a>
       </div>
       <div class="media-body">
         <h4 class="media-heading">{{ list.title }}</h4>
         <div ng-if="list.description" ng-bind-html="list.description"></div>
-        <a ng-href="/#/topics/{{ list.order }}">Browse {{ list.numberOfItems}} items</a>
+        <a ng-href="#/topics/{{ list.order }}">Browse {{ list.numberOfItems}} items</a>
       </div>
     </div>
   </div>
-  <div class="col-md-4 col-md-offset-1" ng-hide="items.length == 0">
+  <div class="col-md-4 col-md-offset-1" ng-if="items">
   <h3>Resources</h3>
-  <div>
-    <a ng-href="/#/resources/{{ item.order }}" class="pull-left" ng-repeat="item in items | itemsWithThumbnails | orderBy:'rank' | limitTo:12">
+  <div class="clearfix">
+    <a ng-href="#/resources/{{ item.order }}" class="pull-left" ng-repeat="item in items | itemsWithThumbnails | orderBy:'rank' | limitTo:12">
       <img class="thumbnail center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
     </a>
   </div>
-  <p><a href="/#/resources/">Browse all {{ items.length }} resources</a></p>
+  <p><a href="#/resources/">Browse all {{ items.length }} resources</a></p>
+  </div>
+  <div class="col-md-12" ng-show="failed">
+  <p>There was a problem loading this exhibition. You can still browse the content on Trove:
+  <ul>
+    <li ng-repeat="link in listLinks"><a href=" {{ link.href }}">{{ link.text }} <fa name="external-link"></fa></a></li>
+  </ul>
+  <p>You can also try <a href="#/reload/">reloading</a> this exhibition.</p> 
+  </div>
 </div>

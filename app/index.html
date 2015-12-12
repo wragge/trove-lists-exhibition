@@ -8,15 +8,13 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <!-- endbuild -->
-    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/style.css">
   </head>
   <body>
     <!--[if lte IE 8]>
@@ -54,33 +52,24 @@
     <div class="container">
 
     <!-- EDIT THIS SECTION TO ADD YOUR EXHIBITION DETAILS -->
-    <h1 ng-hide="listHide" class="ng-hide" id="exhibition-name" class="page-header">Keepsakes</h1>
-    <h2 ng-hide="listHide" class="ng-hide" id="exhibition-tagline">Australians and The Great War</h2>
+    <h1 ng-hide="listHide" class="ng-hide" id="exhibition-name" class="page-header">Forecasters</h1>
+    <h2 ng-hide="listHide" class="ng-hide" id="exhibition-tagline">An assortment of weather prophets</h2>
     <div ng-hide="listHide" class="ng-hide" id="exhibition-description">
-      <p>To mark the centenary of the First World War, <a href="https://www.nla.gov.au/exhibitions/keepsakes"><em>Keepsakes</em></a> explored the diaries, photographs, letters and mementos kept and treasured as reminders of the Great War.</p>
-      <p><em>Keepsakes</em> was on display at the National Library of Australia from 26 November 2014 to 19 July 2015.</p>
-      <p>This site displays content from Trove related to the themes of the exhibition. It is a demonstration of how resources collected using <a href="http://help.nla.gov.au/trove/using-trove/creating-contributing/lists">Trove lists</a> can be reused through the <a href="http://help.nla.gov.au/trove/building-with-trove">Trove API</a> to create new interfaces and applications.</p>
+      <p>This site displays content from Trove. It is a demonstration of how resources collected using <a href="http://help.nla.gov.au/trove/using-trove/creating-contributing/lists">Trove lists</a> can be reused through the <a href="http://help.nla.gov.au/trove/building-with-trove">Trove API</a> to create new interfaces and applications.</p>
+    </div>
+    <div ng-hide="listHide" class="ng-hide" id="exhibition-credit">
+      <p>Created by Tim Sherratt.</p>
     </div>
     <ul ng-hide="listHide" class="ng-hide" id="lists">
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=64880">Keepsakes: Australians and The Great War</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=62867">Keepsakes: Australians and The Great War: 1914</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63188">Keepsakes: Australians and The Great War: 1915</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63492">Keepsakes: Australians and The Great War: 1916</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63493">Keepsakes: Australians and The Great War: 1917</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63504">Keepsakes: Australians and The Great War: 1918</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63346">Keepsakes: Australians and The Great War: J. P. Campbell</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63691">Keepsakes: Australians and The Great War: Arthur Wheen</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63342">Keepsakes: Australians and The Great War: C.E.W. Bean</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63502">Keepsakes: Australians and The Great War: David Low</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63291">Keepsakes: Australians and The Great War: Frank Hurley</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63518">Keepsakes: Australians and The Great War: William Morris Hughes</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63473">Keepsakes: Australians and The Great War: Sir Granville Ryrie</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63862">Keepsakes: Australians and The Great War: Norman Lindsay</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63348">Keepsakes: Australians and The Great War: Sir John Monash</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=63959">Keepsakes: Australians and The Great War: C.J. Dennis</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=43805">A day in the life of Mr Mares, weatherman</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83777">Clement Wragge</a></li>
+      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83774">Inigo Jones</a></li>
     </ul>
     <script>
       var troveAPIKey = "";
+      var config = {};
+      config.directLinks = true;
+      config.showGrid = false;
     </script>
     <!-- END OF YOUR DETAILS -->
 
@@ -89,23 +78,22 @@
     </div>
     </div>
 
-    <div class="footer">
-      <div class="container">
-        
+    <footer>
+      <div class="container text-muted">
+        <div class="row">
+          <div class="col-md-4">
+            <h5>About this exhibition</h5>
+            <p>
+            <small ng-bind-html="credit"></small></p>
+          </div>
+          <div class="col-md-4 col-md-offset-2">
+            <h5>Powered by <a href="http://trove.nla.gov.au">Trove</a></h5>
+            <p><small><a href="https://github.com/wragge/trove-lists-exhibition">Create your own exhibitions</a> using Trove lists.</small></p>
+            <p></p>
+          </div>
       </div>
-    </div>
+    </footer
 
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -119,6 +107,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.js"></script>
+    <script src="bower_components/angular-truncate/src/truncate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

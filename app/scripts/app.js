@@ -15,7 +15,8 @@ var app = angular.module('trovelistsApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'picardy.fontawesome'
+    'picardy.fontawesome',
+    'truncate'
   ]);
 
 app.config(function ($routeProvider) {
@@ -24,6 +25,11 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
       controllerAs: 'mc'
+    })
+    .when('/reload/', {
+      templateUrl: 'views/main.html',
+      controller: 'ReloadCtrl',
+      controllerAs: 'rc'
     })
     .when('/topics/', {
       templateUrl: 'views/lists.html',
@@ -52,31 +58,31 @@ app.config(function ($routeProvider) {
 
 app.controller('BaseCtrl', function($scope, $document, $location) {
   $document.scrollTop(0);
-  $scope.listHide = true;
-  $scope.sort = 'order';
-  $scope.isActive = function (viewLocation) {
-    var active = (viewLocation === $location.path());
-    return active;
-  };
-  $scope.view = 'list';
-  $scope.exhibition = angular.element('#exhibition-name').html();
-  $scope.tagline = angular.element('#exhibition-tagline').html();
-  $scope.description = angular.element('#exhibition-description').html();
-  $scope.items = [];
-  $scope.lists = [];
-  
+  if (typeof $scope.exhibition === 'undefined') {
+    $scope.listHide = true;
+    $scope.sort = 'order';
+    $scope.isActive = function (viewLocation) {
+      var active = (viewLocation === $location.path());
+      return active;
+    };
+    $scope.view = 'list';
+    $scope.exhibition = angular.element('#exhibition-name').html();
+    $scope.tagline = angular.element('#exhibition-tagline').html();
+    $scope.description = angular.element('#exhibition-description').html();
+    $scope.credit = angular.element('#exhibition-credit').html();
+    $scope.listLinks = angular.element('.list-link');
+    $scope.config = window.config;
+  }
 });
 
-app.factory('ListsDataFactory', function($document, $http) {
+app.controller('ReloadCtrl', function($rootScope, $location) {
+  $rootScope.failed = false;
+  $location.url('/');
+});
+
+app.factory('ListsDataFactory', function($rootScope, $document, $http) {
   var listsDataFactory = {};
-  var listLinks = angular.element('.list-link');
-  var promises = [];
-  angular.forEach(listLinks, function(link) {
-    var listID = angular.element(link).attr('href').match(/id=(\d+)/)[1];
-    var request = $http.jsonp('http://api.trove.nla.gov.au/list/' + listID + '?encoding=json&reclevel=full&include=listItems&key=' + troveAPIKey + '&callback=JSON_CALLBACK', {cache: true});
-    promises.push(request);
-  });
-  listsDataFactory.processListItems = function(listItems, listId, items) {
+  var processListItems = function(listItems, listId, items) {
     var order = items.length + 1;
     angular.forEach(listItems, function(listItem) {
       var item = {};
@@ -90,34 +96,58 @@ app.factory('ListsDataFactory', function($document, $http) {
           item.title = details.heading;
           item.newspaper = details.title.value;
           item.date = details.date;
+          try {
+            item.year = parseInt(item.date.toString().match(/^([12]{1}\d{3})[\-\.\w\s]*/)[1], 10);
+          } catch(e) {
+            item.year = 0;
+          }
           item.page = details.page;
           item.url = details.troveUrl;
         } else if (itemType === 'work') {
           item.type = 'work';
           item.title = details.title;
-          item.format = details.type[0];
+          item.id = details.id;
+          item.format = details.type;
           item.url = details.troveUrl;
           item.date = details.issued;
+          if (typeof details.contributor !== 'undefined') {
+            item.contributor = details.contributor;
+          }
+          try {
+            item.year = parseInt(item.date.toString().match(/^([12]{1}\d{3})[\-\.\w\s]*/)[1], 10);
+          } catch(e) {
+            item.year = 0;
+          }
+          item.holdings = details.holdingsCount;
           angular.forEach(details.identifier, function(link) {
             if (link.linktype === 'thumbnail') {
               item.thumbnail = link.value;
-            }
+            } else if (link.linktype === 'fulltext') {
+              item.fulltext = link.value;
+              if (typeof link.linktext !== 'undefined') {
+                item.linktext = link.linktext;
+              }
+            } 
           });
         } else if (itemType === 'externalWebsite') {
           item.type = 'website';
           item.title = details.title;
-          item.url = details.identifier.value;
+          item.url = details.identifier[0].value;
         } else if (itemType === 'note') {
           item.note = details;
+        } else if (itemType === 'people') {
+          item.type = 'people';
         }
       });
-      items.push(item);
-      order++;
+      if (item.type !== 'people') { 
+        items.push(item);
+        order++;
+      }
     });
+console.log(items);
     return items;
   };
-
-  listsDataFactory.processList = function(data, order) {
+  var processList = function(data, order) {
     var list = {};
     list.order = order;
     list.id = data.id;
@@ -125,17 +155,41 @@ app.factory('ListsDataFactory', function($document, $http) {
     list.numberOfItems = data.listItemCount;
     list.description = data.description;
     if (typeof data.identifier !== 'undefined') {
-      list.thumbnail = data.identifier.value;
+      if (data.identifier.value.match(/^http/)) {
+        list.thumbnail = data.identifier.value;
+      } else {
+        list.thumbnail = 'http://trove.nla.gov.au' + data.identifier.value;
+      }
     }
     return [list, data.listItem];
   };
-
   listsDataFactory.getPromises = function() {
+    console.log('Getting...');
+    var listLinks = angular.element('.list-link');
+    var promises = [];
+    angular.forEach(listLinks, function(link) {
+      var listID = angular.element(link).attr('href').match(/id=(\d+)/)[1];
+      var request = $http.jsonp('http://api.trove.nla.gov.au/list/' + listID + '?encoding=json&reclevel=full&include=listItems&key=' + window.troveAPIKey + '&callback=JSON_CALLBACK', {cache: true});
+      promises.push(request);
+    });
     return promises;
   };
+  listsDataFactory.loadResources = function(responses) {
+    var order = 1;
+    var items = [];
+    var lists = [];
+    angular.forEach(responses, function(response) {
+      var listDetails = processList(response.data.list[0], order);
+      items = processListItems(listDetails[1], order, items);
+      lists.push(listDetails[0]);
+      order++;
+    }); 
+    $rootScope.items = items;
+    $rootScope.lists = lists;
+  };
+
   return listsDataFactory;
 });
-
 app.filter('findById', function() {
   return function(list, id) {
     for (var i = 0; i < list.length; i++) {

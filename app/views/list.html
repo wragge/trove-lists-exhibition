@@ -1,27 +1,28 @@
-<div class="loading" ng-hide="lists.length > 0"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
-<div ng-hide="!list">
+<div class="loading text-muted" ng-hide="lists"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
+<div ng-if="list">
 <h2>{{ list.title }}</h2>
 <p ng-if="list.description" class="lead" ng-bind-html="list.description"></p>
 <p><a ng-href="http://trove.nla.gov.au/list?id={{ list.id }}">View list on Trove <fa name="external-link"></fa></a></p>
-<div class="media" ng-repeat="item in items | itemsInList:list.order">
+<div class="media" ng-if="lists" ng-repeat="item in items | itemsInList:list.order">
   <div class="media-left">
-    <a ng-href="/#/resources/{{ item.order }}">
+    <a ng-href="#/resources/{{ item.order }}">
         <img ng-if="item.thumbnail" class="thumbnail media-object center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
         <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-text" size="4"></fa></div>
         <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-image-o" size="4"></fa></div>
-        <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-text" size="4"></fa></div>
+        <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="globe" size="4"></fa></div>
       </a>
   </div>
   <div class="media-body">
     <h4 class="media-heading">{{ item.title }}</h4>
-    <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em>><br><a href="#/resources/{{ item.order }}">View details</a></p>
-    <p ng-if="item.type == 'work'">{{ item.format}}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
+    <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em><br><a href="#/resources/{{ item.order }}">View details</a></p>
+    <p ng-if="item.type == 'work'">{{ item.format[0] }}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
+    <p ng-if="item.type == 'website'"><a href="{{ item.url }}">View site <fa name="external-link"></fa></a></p>
   </div>
 </div>
 <nav>
   <ul class="pager">
-    <li class="previous" ng-class="{disabled: list.order === 1}"><a ng-href="{{(list.order === 1) ? '' : '/#/topics/' + (list.order - 1)}}"><span aria-hidden="true">&larr;</span> Previous</a></li>
-    <li ng-class="{disabled: list.order === lists.length}"><a ng-href="{{(list.order === lists.length) ? '' : '/#/topics/' + (list.order + 1)}}">Next <span aria-hidden="true">&rarr;</span></a></li>
+    <li class="previous" ng-class="{disabled: list.order === 1}"><a ng-href="{{(list.order === 1) ? '' : '#/topics/' + (list.order - 1)}}"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    <li ng-class="{disabled: list.order === lists.length}"><a ng-href="{{(list.order === lists.length) ? '' : '#/topics/' + (list.order + 1)}}">Next <span aria-hidden="true">&rarr;</span></a></li>
   </ul>
 </nav>
 </div>

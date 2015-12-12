@@ -1,18 +1,16 @@
 .center-cropped {
-  object-fit: cover; /* Do not scale the image */
-  object-position: center; /* Center the image within the element */
+  object-fit: cover;
+  object-position: center;
   height: 100px;
   width: 100px;
-  background-color: #690;
   margin: 5px;
   text-align: center;
 }
 .center-cropped-large {
-  object-fit: scale-down; /* Do not scale the image */
-  object-position: center; /* Center the image within the element */
+  object-fit: scale-down;
+  object-position: center;
   height: 200px;
   width: 200px;
-  background-color: #690;
   margin: 5px;
 }
 
@@ -20,10 +18,18 @@
     
 }
 
+footer {
+  border-top: 1px solid #3e3f3a; /* Match to navbar border */
+  margin-top: 40px;
+  padding: 20px 0 40px 0;
+}
+
 .newspaper-text {
-  background-color: #690;
+  background-color: #f8f5f0; /* Match to thumbnail background */
+  border: 1px solid #dfd7ca; /* Match to thumbnail border*/
+  border-radius: 4px;
   padding: 10px;
-  color: #fff;
+  font-family: Georgia, "Times New Roman", Times, serif; /* Match to serif font*/
 }
 
 .tile-text { color: #fff;}
@@ -38,10 +44,15 @@
     transform: translateY(-50%);
 }
 
+.items-filter {
+  padding: 20px
+}
+
 .loading {
   text-align: center;
   vertical-align: bottom;
-  height: 200px;
+  height: 300px;
+  padding-top: 50px;
 }
 
 .loading.ng-enter {
@@ -62,6 +73,7 @@
 
 .view-container {
   position: relative;
+  min-height: 400px;
 }
 
 .view-frame.ng-enter, .view-frame.ng-leave {

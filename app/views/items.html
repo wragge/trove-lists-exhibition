@@ -1,20 +1,23 @@
 <h2>Resources</h2>
-<div class="loading" ng-hide="lists.length > 0"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
-  <div ng-hide="items.length == 0">
-  <p>
+<div class="loading text-muted" ng-hide="lists"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
+  <div ng-show="items">
+  <p ng-if="config.showGrid">
     <button ng-click="view = 'list'"><fa name="list"></fa></button> 
     <button ng-click="view = 'grid'"><fa name="th"></fa></button>
     </p>
-  <form class="form-inline" role="search">
+  <form class="form-inline items-filter" role="search">
     <div class="form-group">
       <label>Order by:</label>
       <select class="form-control" ng-model="sort">
         <option value="order">Topic</option>
         <option value="title">Title</option>
+        <option value="year">Year</option>
       </select> 
+    </div>
+    <div class="form-group">
       <label>Filter by:</label>
       <div class="input-group">
-        <input ng-model="query" type="text" class="form-control" placeholder="Query" ng-minlength="3"> 
+        <input ng-model="query" type="text" class="form-control" placeholder="query" ng-minlength="3"> 
         <div class="input-group-addon"><fa name="search"></fa></div>
       </div>
     </div>
@@ -22,22 +25,27 @@
   </div>
   <div ng-if="view == 'list'" class="media item-listing" ng-repeat="item in items | filter:query | orderBy:sort">
     <div class="media-left">
-      <a ng-href="/#/resources/{{ item.order }}">
+      <a ng-href="#/resources/{{ item.order }}">
         <img ng-if="item.thumbnail" class="thumbnail media-object center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
          <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-text" size="4"></fa></div>
         <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-image-o" size="4"></fa></div>
-        <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-text" size="4"></fa></div>
+        <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="globe" size="4"></fa></div>
       </a>
     </div>
     <div class="media-body">
       <h4 class="media-heading">{{ item.title }}</h4>
-      <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em>><br><a href="#/resources/{{ item.order }}">View details</a></p>
-      <p ng-if="item.type == 'work'">{{ item.format}}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
+      <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em><br><a href="#/resources/{{ item.order }}">View details</a></p>
+      <p ng-if="item.type == 'work'">{{ item.format[0]}}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
+      <p ng-if="item.type == 'website'"><a href="{{ item.url }}">View site <fa name="external-link"></fa></a></p>
+  </div>
     </div>
   </div>
   <div ng-if="view == 'grid'">
-  <a ng-repeat="item in items | filter:query | orderBy:sort" ng-href="/#/resources/{{ item.order }}" class="pull-left item-listing">
-        <img ng-if="item.type == 'work'" class="center-cropped-large thumbnail" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
+  <a ng-repeat="item in items | filter:query | orderBy:sort" ng-href="#/resources/{{ item.order }}" class="pull-left item-listing">
+        <img ng-if="item.type == 'work' && item.thumbnail" class="center-cropped-large thumbnail" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
+        <div class="center-cropped-large thumbnail tile" ng-if="item.type == 'work' && !item.thumbnail">
+          <h6 class="tile-text">{{ item.title | characters:50 }}</h6>
+        </div>
         <div class="center-cropped-large thumbnail" ng-if="item.type == 'newspaper'">
           <p class="tile-text">{{ item.title }}</p>
         </div>
