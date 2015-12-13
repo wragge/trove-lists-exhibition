@@ -6,6 +6,8 @@ You can easily customise it to turn your own collection of lists into an exhibit
 
 See the [demo](http://wragge.github.io/forecasters-demo).
 
+See [DIY Trove Exhibition](https://github.com/wragge/diy-trove-exhibition) for a simplified version that will have your exhibition online in minutes.
+
 ## Setting things up.
 
 Clone this repository into the folder of your choice.
