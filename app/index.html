@@ -8,11 +8,12 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/style.css">
   </head>
@@ -51,48 +52,49 @@
 
     <div class="container">
 
-    <!-- EDIT THIS SECTION TO ADD YOUR EXHIBITION DETAILS -->
-    <h1 ng-hide="listHide" class="ng-hide" id="exhibition-name" class="page-header">Forecasters</h1>
-    <h2 ng-hide="listHide" class="ng-hide" id="exhibition-tagline">An assortment of weather prophets</h2>
-    <div ng-hide="listHide" class="ng-hide" id="exhibition-description">
-      <p>This site displays content from Trove. It is a demonstration of how resources collected using <a href="http://help.nla.gov.au/trove/using-trove/creating-contributing/lists">Trove lists</a> can be reused through the <a href="http://help.nla.gov.au/trove/building-with-trove">Trove API</a> to create new interfaces and applications.</p>
-    </div>
-    <div ng-hide="listHide" class="ng-hide" id="exhibition-credit">
-      <p>Created by Tim Sherratt.</p>
-    </div>
-    <ul ng-hide="listHide" class="ng-hide" id="lists">
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=43805">A day in the life of Mr Mares, weatherman</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83777">Clement Wragge</a></li>
-      <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83774">Inigo Jones</a></li>
-    </ul>
-    <script>
-      var troveAPIKey = "";
-      var config = {};
-      config.directLinks = true;
-      config.showGrid = false;
-    </script>
-    <!-- END OF YOUR DETAILS -->
+      <!-- EDIT THIS SECTION TO ADD YOUR EXHIBITION DETAILS -->
+      <h1 ng-hide="listHide" class="ng-hide" id="exhibition-name" class="page-header">Forecasters</h1>
+      <h2 ng-hide="listHide" class="ng-hide" id="exhibition-tagline">An assortment of weather prophets</h2>
+      <div ng-hide="listHide" class="ng-hide" id="exhibition-description">
+        <p>This site displays content from Trove. It is a demonstration of how resources collected using <a href="http://help.nla.gov.au/trove/using-trove/creating-contributing/lists">Trove lists</a> can be reused through the <a href="http://help.nla.gov.au/trove/building-with-trove">Trove API</a> to create new interfaces and applications.</p>
+      </div>
+      <div ng-hide="listHide" class="ng-hide" id="exhibition-credit">
+        <p><small>This demonstration was created by <a href="http://discontents.com.au/about-me">Tim Sherratt</a> (<a href="http://twitter.com/wragge">@wragge</a>) to show how easy it is to create your own exhibition.</small></p>
+      </div>
+      <ul ng-hide="listHide" class="ng-hide" id="lists">
+        <li><a class="list-link" href="http://trove.nla.gov.au/list?id=43805">A day in the life of Mr Mares, weatherman</a></li>
+        <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83777">Clement Wragge</a></li>
+        <li><a class="list-link" href="http://trove.nla.gov.au/list?id=83774">Inigo Jones</a></li>
+      </ul>
+      <script>
+        var troveAPIKey = "";
+        var config = {};
+        config.directLinks = true;
+        config.showGrid = false;
+      </script>
+      <!-- END OF YOUR DETAILS -->
 
-    <div class="view-container">
-      <div ng-view="" class="view-frame"></div>
-    </div>
+      <div class="view-container">
+        <div ng-view="" class="view-frame"></div>
+      </div>
     </div>
 
     <footer>
       <div class="container text-muted">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <h5>About this exhibition</h5>
-            <p>
-            <small ng-bind-html="credit"></small></p>
+            <div ng-bind-html="credit"></div>
           </div>
           <div class="col-md-4 col-md-offset-2">
+            <img src="images/trove_logo.png" class="pull-right">
             <h5>Powered by <a href="http://trove.nla.gov.au">Trove</a></h5>
             <p><small><a href="https://github.com/wragge/trove-lists-exhibition">Create your own exhibitions</a> using Trove lists.</small></p>
             <p></p>
           </div>
       </div>
-    </footer
+    </footer>
+
 
 
     <!-- build:js(.) scripts/vendor.js -->

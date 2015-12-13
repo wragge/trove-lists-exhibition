@@ -12,6 +12,18 @@ angular.module('trovelistsApp')
     $document.scrollTop(0);
     //this.order = $routeParams.order;
     //this.list = lists[listId];
+    $scope.nextList = function() {
+      var order = parseInt($routeParams.order, 10);
+      if (order < $rootScope.lists.length) {
+        $location.path('topics/' + (order + 1));
+      }
+    };
+    $scope.previousList = function() {
+      var order = parseInt($routeParams.order, 10);
+      if (order !== 1) {
+        $location.url('topics/' + (order - 1));
+      }
+    };
     var setList = function() {
       var list = $filter('findById')($rootScope.lists, $routeParams.order);
       $scope.list = list;

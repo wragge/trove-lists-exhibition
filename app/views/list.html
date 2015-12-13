@@ -1,5 +1,5 @@
 <div class="loading text-muted" ng-hide="lists"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
-<div ng-if="list">
+<div ng-show="list" ng-swipe-left="nextList()" ng-swipe-right="previousList()">
 <h2>{{ list.title }}</h2>
 <p ng-if="list.description" class="lead" ng-bind-html="list.description"></p>
 <p><a ng-href="http://trove.nla.gov.au/list?id={{ list.id }}">View list on Trove <fa name="external-link"></fa></a></p>

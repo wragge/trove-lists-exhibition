@@ -13,9 +13,24 @@ angular.module('trovelistsApp')
     //this.order = $routeParams.order;
     //this.list = lists[listId];
     $scope.nextItem = function() {
-      var order = $routeParams.order;
+      var order = parseInt($routeParams.order, 10);
       if (order < $rootScope.items.length) {
-        $location.url('#/resources/' + (order + 1));
+        $location.path('resources/' + (order + 1));
+      }
+    };
+    $scope.previousItem = function() {
+      var order = parseInt($routeParams.order, 10);
+      if (order !== 1) {
+        $location.url('resources/' + (order - 1));
+      }
+    };
+    $scope.showText = function(length) {
+      if (length === 'snippet') {
+        $scope.displayText = $filter('words')($scope.articleText, 100);
+        $scope.fullText = false;
+      } else {
+        $scope.displayText = $scope.articleText;
+        $scope.fullText = true;
       }
     };
     var setItem = function() {
@@ -28,6 +43,7 @@ angular.module('trovelistsApp')
             //$scope.articleText = paras.slice(0,5).join('') + '&hellip;';
             $scope.articleText = response.data.article.articleText;
             $scope.words = response.data.article.wordCount;
+            $scope.showText('snippet');
         });
       } else if (item.type === 'work' && item.holdings === 1) {
         $http.jsonp('http://api.trove.nla.gov.au/work/' + item.id + '?encoding=json&reclevel=full&include=holdings&key=' + window.troveAPIKey + '&callback=JSON_CALLBACK', {cache: true})
