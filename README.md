@@ -4,7 +4,7 @@ This is a AngularJS web app that retrieves lists of resources collected in Trove
 
 You can easily customise it to turn your own collection of lists into an exhibition.
 
-See the [demo](http://keepsakes-lists-demo.herokuapp.com/#/).
+See the [demo](http://wragge.github.io/forecasters-demo).
 
 ## Setting things up.
 
@@ -25,7 +25,7 @@ Open `index.html` in the editor of your choice.
 
 Look for the 'EDIT THIS SECTION TO ADD YOUR EXHIBITION DETAILS' section.
 
-Modify this to add your own exhibition name, tagline and description. Most importantly, edit the list of lists to include your own.
+Modify this to add your own exhibition name, tagline, description and credits. Most importantly, edit the list of lists to include your own.
 
 Insert your API key where you see `var troveAPIKey = "";`
 
