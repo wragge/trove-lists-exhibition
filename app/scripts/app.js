@@ -132,7 +132,11 @@ app.factory('ListsDataFactory', function($rootScope, $document, $http) {
         } else if (itemType === 'externalWebsite') {
           item.type = 'website';
           item.title = details.title;
-          item.url = details.identifier[0].value;
+          if (angular.isArray(details.identifier)) {
+            item.url = details.identifier[0].value;
+          } else {
+            item.url = details.identifier.value;
+          }
         } else if (itemType === 'note') {
           item.note = details;
         } else if (itemType === 'people') {

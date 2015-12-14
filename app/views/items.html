@@ -27,8 +27,8 @@
     <div class="media-left">
       <a ng-href="#/resources/{{ item.order }}">
         <img ng-if="item.thumbnail" class="thumbnail media-object center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
-         <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-text" size="4"></fa></div>
-        <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="file-image-o" size="4"></fa></div>
+         <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="newspaper-o" size="4"></fa></div>
+        <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="photo" size="4"></fa></div>
         <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="globe" size="4"></fa></div>
       </a>
     </div>
