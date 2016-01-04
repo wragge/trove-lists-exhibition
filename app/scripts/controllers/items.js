@@ -11,6 +11,10 @@ angular.module('trovelistsApp')
   .controller('ItemsCtrl', ['$scope', '$rootScope', '$routeParams', '$document', '$filter', '$http', '$q', '$location', 'ListsDataFactory', function ($scope, $rootScope, $routeParams, $document, $filter, $http, $q, $location, ListsDataFactory) {
     $document.scrollTop(0);
     $scope.view = 'list';
+    $scope.totalDisplayed = 20;
+    $scope.loadMore = function() {
+      $scope.totalDisplayed += 20;  
+    };
     if (typeof $rootScope.items === 'undefined' && $rootScope.failed !== true) {
         var tries = 1;
         var loadListData = function() {

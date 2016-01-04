@@ -23,21 +23,22 @@
     </div>
   </form>
   </div>
-  <div ng-if="view == 'list'" class="media item-listing" ng-repeat="item in items | filter:query | orderBy:sort">
-    <div class="media-left">
-      <a ng-href="#/resources/{{ item.order }}">
-        <img ng-if="item.thumbnail" class="thumbnail media-object center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
-         <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="newspaper-o" size="4"></fa></div>
-        <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="photo" size="4"></fa></div>
-        <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="globe" size="4"></fa></div>
-      </a>
-    </div>
-    <div class="media-body">
-      <h4 class="media-heading">{{ item.title }}</h4>
-      <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em><br><a href="#/resources/{{ item.order }}">View details</a></p>
-      <p ng-if="item.type == 'work'">{{ item.format[0]}}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
-      <p ng-if="item.type == 'website'"><a href="{{ item.url }}">View site <fa name="external-link"></fa></a></p>
-  </div>
+  <div infinite-scroll="loadMore()" infinite-scroll-distance="3">
+    <div ng-if="view == 'list'" class="media item-listing" ng-repeat="item in items | filter:query | orderBy:sort | limitTo:totalDisplayed">
+      <div class="media-left">
+        <a ng-href="#/resources/{{ item.order }}">
+          <img ng-if="item.thumbnail" class="thumbnail media-object center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
+           <div ng-if="!item.thumbnail && item.type == 'newspaper'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="newspaper-o" size="4"></fa></div>
+          <div ng-if="!item.thumbnail && item.type == 'work'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="photo" size="4"></fa></div>
+          <div ng-if="!item.thumbnail && item.type == 'website'" class="thumbnail media-object center-cropped"><fa class="blank-icon" name="globe" size="4"></fa></div>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ item.title }}</h4>
+        <p ng-if="item.type == 'newspaper'">{{ item.date | dateFormat }}<br><em>{{ item.newspaper}}</em><br><a href="#/resources/{{ item.order }}">View details</a></p>
+        <p ng-if="item.type == 'work'">{{ item.format[0]}}<br>{{ item.date}}<br><a href="#/resources/{{ item.order }}">View details</a></p>
+        <p ng-if="item.type == 'website'"><a href="{{ item.url }}">View site <fa name="external-link"></fa></a></p>
+      </div>
     </div>
   </div>
   <div ng-if="view == 'grid'">
