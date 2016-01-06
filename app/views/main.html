@@ -21,7 +21,7 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading">{{ list.title }}</h4>
-        <div ng-if="list.description" ng-bind-html="list.description"></div>
+        <div ng-if="list.description" ng-bind-html="list.description | words:config.listSnippet"></div>
         <a ng-href="#/topics/{{ list.order }}">Browse {{ list.numberOfItems}} items</a>
       </div>
     </div>
