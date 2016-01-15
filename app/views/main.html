@@ -29,7 +29,7 @@
   <div class="col-md-4 col-md-offset-1" ng-if="items">
   <h3>Resources</h3>
   <div class="clearfix">
-    <a ng-href="#/resources/{{ item.order }}" class="pull-left" ng-repeat="item in items | itemsWithThumbnails | orderBy:'rank' | limitTo:12">
+    <a ng-href="#/resources/{{ item.order }}" class="pull-left" ng-repeat="item in items | itemsWithThumbnails | orderBy:'rank' | limitTo:12" title="{{ item.title }}">
       <img class="thumbnail center-cropped" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
     </a>
   </div>

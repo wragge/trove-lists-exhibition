@@ -17,7 +17,8 @@ var app = angular.module('trovelistsApp', [
     'ngTouch',
     'picardy.fontawesome',
     'truncate',
-    'infinite-scroll'
+    'infinite-scroll',
+    'masonry'
   ]);
 
 app.config(function ($routeProvider) {

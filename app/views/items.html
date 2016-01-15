@@ -1,12 +1,12 @@
 <h2>Resources</h2>
 <div class="loading text-muted" ng-hide="lists"><fa name="spinner" size="5" spin></fa><br>Loading resources&hellip;</div>
   <div ng-show="items">
-  <p ng-if="config.showGrid">
-    <button ng-click="view = 'list'"><fa name="list"></fa></button> 
-    <button ng-click="view = 'grid'"><fa name="th"></fa></button>
+  <p ng-show="config.showGrid">
+    <button title="Show all items" ng-click="view = 'list'; totalDisplayed = 20"><fa name="list"></fa></button> 
+    <button title="Show items with thumbnails" ng-click="view = 'grid'; totalDisplayed = 50"><fa name="th"></fa></button>
     </p>
   <form class="form-inline items-filter" role="search">
-    <div class="form-group">
+    <div ng-show="view == 'list'" class="form-group">
       <label>Order by:</label>
       <select class="form-control" ng-model="sort">
         <option value="order">Topic</option>
@@ -41,15 +41,15 @@
       </div>
     </div>
   </div>
+  <div infinite-scroll="loadMore()" infinite-scroll-distance="3">
   <div ng-if="view == 'grid'">
-  <a ng-repeat="item in items | filter:query | orderBy:sort" ng-href="#/resources/{{ item.order }}" class="pull-left item-listing">
-        <img ng-if="item.type == 'work' && item.thumbnail" class="center-cropped-large thumbnail" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
-        <div class="center-cropped-large thumbnail tile" ng-if="item.type == 'work' && !item.thumbnail">
-          <h6 class="tile-text">{{ item.title | characters:50 }}</h6>
-        </div>
-        <div class="center-cropped-large thumbnail" ng-if="item.type == 'newspaper'">
-          <p class="tile-text">{{ item.title }}</p>
-        </div>
-      </a>
+    <ul class="wall" masonry='{ "itemSelector": ".wall-item", "columnWidth": 110, "gutter": 5}'>
+      <li masonry-tile ng-repeat="item in items | itemsWithThumbnails | orderBy:'rank' | filter:query" class="wall-item">
+        <a ng-href="#/resources/{{ item.order }}" title="{{ item.title }}">
+          <img class="center-cropped-wall thumbnail" ng-src="{{ item.thumbnail }}" alt="Thumbnail for {{ item.title }}">
+        </a>
+      </li>
+    </ul>
+  </div>
   </div>
 

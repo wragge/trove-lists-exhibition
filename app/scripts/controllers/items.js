@@ -13,7 +13,9 @@ angular.module('trovelistsApp')
     $scope.view = 'list';
     $scope.totalDisplayed = 20;
     $scope.loadMore = function() {
-      $scope.totalDisplayed += 20;  
+      if ($scope.totalDisplayed < $scope.items.length) {
+        $scope.totalDisplayed += 20;  
+      }
     };
     if (typeof $rootScope.items === 'undefined' && $rootScope.failed !== true) {
         var tries = 1;
